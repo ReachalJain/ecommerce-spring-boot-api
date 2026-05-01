@@ -14,19 +14,13 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
+    public User login(@RequestBody User user) {
         User found = userRepository.findByEmailAndPassword(
                 user.getEmail(),
                 user.getPassword()
         );
-        if (found != null) {
-            return "Login Successful! Welcome " + found.getName();
-        } else {
-            return "Invalid email or password!";
-        }
+        return found;
     }
-
-
     @PostMapping("/signup")
     public String signup(@RequestBody User user) {
 
@@ -38,4 +32,5 @@ public class AuthController {
         userRepository.save(user);
         return "Signup Successful! Welcome " + user.getName();
     }
+
 }

@@ -20,12 +20,19 @@ public class ProductController {
         return productRepository.findAll();
     }
 
-    // ✅ Ek product lao by ID
+
     @GetMapping("/products/{id}")
     public Product getProductById(@PathVariable int id) {
         return productRepository.findById(id).orElse(null);
     }
-    // ✅ Category wise products
+
+
+    @GetMapping("/products/search")
+    public List<Product> searchProducts(@RequestParam String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
+
     @GetMapping("/products/category/{category}")
     public List<Product> getByCategory(@PathVariable String category) {
         return productRepository.findByCategory(category);
